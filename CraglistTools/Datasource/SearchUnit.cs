@@ -14,8 +14,23 @@ namespace CraigslistTools.Datasource
             get { return _url; }
             set { _url = value; }
         }
+        private string _city;
+        public string City
+        {
+            get { return _city; }
+            set { _city = value; }
+        }
+        private string _category;
+        public string Category
+        {
+            get { return _category; }
+            set { _category = value; }
+        }
+
         public SearchUnit(string city, string craigslist, string category, string keyword)
         {
+            _city = city;
+            _category = category;
             _url = GetSearchUrl(city, craigslist, category, keyword);
         }
         private string GetSearchUrl(string city, string craigslist, string category, string keyword)

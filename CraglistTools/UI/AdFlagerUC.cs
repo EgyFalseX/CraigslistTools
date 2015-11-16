@@ -9,13 +9,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using System.Runtime.InteropServices;
+using System.Net;
 
 namespace CraigslistTools.UI
 {
     public partial class AdFlagerUC : DevExpress.XtraEditors.XtraUserControl
     {
         WebBrowser _searchBrowser = new WebBrowser();
-        WebBrowser _flagBrowser = new WebBrowser();
+        //WebBrowser _flagBrowser = new WebBrowser();
         Queue<Datasource.SearchUnit> _searchList = new Queue<Datasource.SearchUnit>();
         Queue<Datasource.FlagUnit> _flagQue = new Queue<Datasource.FlagUnit>();
         List<Datasource.FlagUnit> _flagList = new List<Datasource.FlagUnit>();
@@ -23,47 +24,12 @@ namespace CraigslistTools.UI
         string _craigslist = "craigslist.org";
         string _postpid = "data-pid=\"";
         string _flagMSG = "thanks for flagging!";
-
-        #region Win API
-        [DllImport("urlmon.dll", CharSet = CharSet.Ansi)]
-        private static extern int UrlMkSetSessionOption(int dwOption, string pBuffer, int dwBufferLength, int dwReserved);
-        const int URLMON_OPTION_USERAGENT = 0x10000001;
-        public struct Struct_INTERNET_PROXY_INFO
-        {
-            public int dwAccessType;
-            public IntPtr proxy;
-            public IntPtr proxyBypass;
-        };
-
-        [DllImport("wininet.dll", SetLastError = true)]
-        private static extern bool InternetSetOption(IntPtr hInternet, int dwOption, IntPtr lpBuffer, int lpdwBufferLength);
-        private void RefreshIESettings(string strProxy)
-        {
-            const int INTERNET_OPTION_PROXY = 38;
-            const int INTERNET_OPEN_TYPE_PROXY = 3;
-
-            Struct_INTERNET_PROXY_INFO struct_IPI;
-
-            // Filling in structure 
-            struct_IPI.dwAccessType = INTERNET_OPEN_TYPE_PROXY;
-            struct_IPI.proxy = Marshal.StringToHGlobalAnsi(strProxy);
-            struct_IPI.proxyBypass = Marshal.StringToHGlobalAnsi("local");
-
-            // Allocating memory 
-            IntPtr intptrStruct = Marshal.AllocCoTaskMem(Marshal.SizeOf(struct_IPI));
-
-            // Converting structure to IntPtr 
-            Marshal.StructureToPtr(struct_IPI, intptrStruct, true);
-
-            bool iReturn = InternetSetOption(IntPtr.Zero, INTERNET_OPTION_PROXY, intptrStruct, Marshal.SizeOf(struct_IPI));
-        } 
-        #endregion
-
+        
         public AdFlagerUC()
         {
             InitializeComponent();
             _searchBrowser.DocumentCompleted += _searchBrowser_DocumentCompleted;
-            _flagBrowser.DocumentCompleted += _flagBrowser_DocumentCompleted;
+            //_flagBrowser.DocumentCompleted += _flagBrowser_DocumentCompleted;
             cityTableAdapter.Fill(dsData.City);
             userAgentTableAdapter.Fill(dsData.UserAgent);
             proxyTableAdapter.Fill(dsData.Proxy);
@@ -78,7 +44,7 @@ namespace CraigslistTools.UI
         
         public void ChangeUserAgent(string Agent)
         {
-            UrlMkSetSessionOption(URLMON_OPTION_USERAGENT, Agent, Agent.Length, 0);
+            Core.Core.UrlMkSetSessionOption(Core.Core.URLMON_OPTION_USERAGENT, Agent, Agent.Length, 0);
         }
         private string GetSearchUrl(string city, string craigslist, string category, string keyword)
         {
@@ -138,20 +104,23 @@ namespace CraigslistTools.UI
             if (_searchList.Count == 0)
                 return;
             Datasource.SearchUnit item = _searchList.Dequeue();
+            _searchBrowser.Tag = item;
             _searchBrowser.Navigate(item.Url);
             pbcSearch.EditValue = (int)pbcSearch.EditValue + 1;
         }
         private void _searchBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
+            Datasource.SearchUnit item = (Datasource.SearchUnit)((WebBrowser)sender).Tag;
             List<string> PIDs = ParseSearchResult(_searchBrowser.DocumentText);
             string[] proxies = ccbProxy.EditValue.ToString().Split(',');
+            Random rnd = new Random(0);
             foreach (string pid in PIDs)
             {
-                _flagList.Add(new Datasource.FlagUnit("", 0, "", pid));
+                _flagList.Add(new Datasource.FlagUnit("", 0, "", pid, item.City, item.Category));
                 foreach (string proxy in proxies)
                 {
-                    int id = new Random(0).Next(0, dsData.UserAgent.Count);
-                    Datasource.FlagUnit data = new Datasource.FlagUnit(proxy, dsData.UserAgent[id].UserAgentId, dsData.UserAgent[id].UserAgentName, pid);
+                    int id = rnd.Next(0, dsData.UserAgent.Count);
+                    Datasource.FlagUnit data = new Datasource.FlagUnit(proxy, dsData.UserAgent[id].UserAgentId, dsData.UserAgent[id].UserAgentName, pid, item.City, item.Category);
                     _flagQue.Enqueue(data);
                 }
             }
@@ -169,15 +138,22 @@ namespace CraigslistTools.UI
             {
                 return;
             }
+            string[] PIDs = tbPID.EditValue.ToString().Split('\n');
             string[] proxies = ccbProxy.EditValue.ToString().Split(',');
-            foreach (string proxy in proxies)
+            foreach (string pid in PIDs)
             {
-                int id = new Random(0).Next(0, dsData.UserAgent.Count);
-                Datasource.FlagUnit data = new Datasource.FlagUnit(proxy, dsData.UserAgent[id].UserAgentId, dsData.UserAgent[id].UserAgentName, tbPID.EditValue.ToString());
-                _flagQue.Enqueue(data); _flagList.Add(new Datasource.FlagUnit("", 0, "", tbPID.EditValue.ToString()));
-                //gridControlPID.DataSource = _flagList;
-                gridControlPID.RefreshDataSource();
+                if (pid.Trim() == string.Empty)
+                   continue;
+                foreach (string proxy in proxies)
+                {
+                    int id = new Random(0).Next(0, dsData.UserAgent.Count);
+                    Datasource.FlagUnit data = new Datasource.FlagUnit(proxy, dsData.UserAgent[id].UserAgentId, dsData.UserAgent[id].UserAgentName, pid.Trim(), "Unknown", "Unknown");
+                    _flagQue.Enqueue(data); _flagList.Add(new Datasource.FlagUnit("", 0, "", pid.Trim(), "Unknown", "Unknown"));
+                    //gridControlPID.DataSource = _flagList;
+                    gridControlPID.RefreshDataSource();
+                }
             }
+
             tbPID.EditValue = null;
         }
         private void repositoryItemCheckEditExe_CheckedChanged(object sender, EventArgs e)
@@ -200,14 +176,22 @@ namespace CraigslistTools.UI
                 Datasource.FlagUnit flag = _flagQue.Dequeue();
             while (!flag.Exe)
                 flag = _flagQue.Dequeue();
+            WebBrowser _flagBrowser = new WebBrowser();
+            _flagBrowser.DocumentCompleted += _flagBrowser_DocumentCompleted;
+            Cookie coki = new Cookie(flag.Proxy + flag.AgentId + flag.PID, flag.Proxy + flag.AgentId + flag.PID, Application.StartupPath + "/Cookie", "/");
+            Core.Core.InternetSetCookie(flag.Url, null, coki.ToString() + "; expires = Sun, 01-Jan-2017 00:00:00 GMT");
+
             ChangeUserAgent(flag.Agent);
-            RefreshIESettings(flag.Proxy);
+            Core.Core.RefreshIESettings(flag.Proxy);
             _flagBrowser.Tag = flag;
+            _tmr_flag.Tag = _flagBrowser;
             _tmr_flag.Start();
+            System.Threading.Thread.Sleep(1000 * 3);
             _flagBrowser.Navigate(flag.Url);
         }
         private void _flagBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
+            WebBrowser _flagBrowser = (WebBrowser)sender;
             _tmr_flag.Stop();
             pbcFlag.EditValue = (int)pbcFlag.EditValue + 1;
             Datasource.FlagUnit flg = (Datasource.FlagUnit)_flagBrowser.Tag;
@@ -216,6 +200,17 @@ namespace CraigslistTools.UI
             else
                 flg.Status = "Can't Flag ...!!" + Environment.NewLine + _flagBrowser.DocumentText;
 
+            //Clear Cookies
+            string[] Cookies = System.IO.Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.Cookies));
+            foreach (string CookieFile in Cookies)
+            {
+                try { System.IO.File.Delete(CookieFile); } catch { }
+            }
+            if (_flagBrowser.Document.Cookie != null)
+            {
+                _flagBrowser.Document.Cookie.Remove(0, _flagBrowser.Document.Cookie.Length);
+                _flagBrowser.Document.Cookie = string.Empty;
+            }
             //Add Row
             Datasource.dsData.FlagLogRow row = dsData.FlagLog.NewFlagLogRow();
             row.FlagDate = DateTime.Now;
@@ -229,8 +224,13 @@ namespace CraigslistTools.UI
                 btnSearch.Enabled = btnStartFlag.Enabled = btnAddPID.Enabled = true; Application.DoEvents();
             }
         }
+        private void btnExportPIDs_Click(object sender, EventArgs e)
+        {
+            gridViewPID.ShowRibbonPrintPreview();
+        }
         private void _tmr_flag_Tick(object sender, EventArgs e)
         {
+            WebBrowser _flagBrowser = (WebBrowser)((Timer)sender).Tag;
             Datasource.FlagUnit flg = (Datasource.FlagUnit)_flagBrowser.Tag;
             flg.Status = "Can't Flag ...!! - Timeout";
             //Add Row
@@ -248,9 +248,15 @@ namespace CraigslistTools.UI
         }
         private void btnStartFlag_Click(object sender, EventArgs e)
         {
+            if (!dxvp.Validate())
+                return;
             dsData.FlagLog.Clear();
             btnSearch.Enabled = btnStartFlag.Enabled = btnAddPID.Enabled = false; Application.DoEvents();
-            pbcFlag.Properties.Maximum = _flagQue.Count; pbcFlag.EditValue = 0;
+
+            string[] proxies = ccbProxy.EditValue.ToString().Split(',');
+
+            pbcFlag.Properties.Maximum = _flagQue.Count * proxies.Length; pbcFlag.EditValue = 0;
+            MessageBox.Show(pbcFlag.Properties.Maximum.ToString());
             ExeFlag();
         }
 

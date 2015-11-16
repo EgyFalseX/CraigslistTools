@@ -43,6 +43,18 @@ namespace CraigslistTools.Datasource
             get { return _pid; }
             set { _pid = value; OnPropertyChanged("PID"); }
         }
+        private string _city;
+        public string City
+        {
+            get { return _city; }
+            set { _city = value; OnPropertyChanged("City"); }
+        }
+        private string _category;
+        public string Category
+        {
+            get { return _category; }
+            set { _category = value; OnPropertyChanged("Category"); }
+        }
         private string _url;
         public string Url
         {
@@ -61,12 +73,14 @@ namespace CraigslistTools.Datasource
             get { return _status; }
             set { _status = value; OnPropertyChanged("Status"); }
         }
-        public FlagUnit(string proxy, int agentId, string agent, string pid)
+        public FlagUnit(string proxy, int agentId, string agent, string pid, string city, string category)
         {
             Proxy = proxy;
             Agent = agent;
             _pid = pid;
             AgentId = agentId;
+            _city = city;
+            _category = category;
             Exe = true;
             Url = string.Format(@"https://post.craigslist.org/flag?flagCode=28&postingID=" + pid);
 

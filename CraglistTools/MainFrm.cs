@@ -16,6 +16,7 @@ namespace CraigslistTools
         UI.CityUC docCityCtr = new UI.CityUC();
         UI.CategoryUC docCategoryCtr = new UI.CategoryUC();
         UI.UserAgentUC docUserAgentCtr = new UI.UserAgentUC();
+        UI.TestProxyUC docTestProxyCtr = new UI.TestProxyUC();
         public MainFrm()
         {
             InitializeComponent();
@@ -63,6 +64,11 @@ namespace CraigslistTools
             docUserAgentCtr = new UI.UserAgentUC();
             ActivateDoc(docUserAgentCtr.Name, e.Item.Caption, e.Item.Glyph);
         }
+        private void bbiTestProxy_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            docTestProxyCtr = new UI.TestProxyUC();
+            ActivateDoc(docTestProxyCtr.Name, e.Item.Caption, e.Item.Glyph);
+        }
         private void tabbedViewMain_QueryControl(object sender, DevExpress.XtraBars.Docking2010.Views.QueryControlEventArgs e)
         {
             if (e.Control != null)
@@ -82,6 +88,10 @@ namespace CraigslistTools
             else if (e.Document.ControlName == "CategoryUC")
             {
                 e.Control = docCategoryCtr;
+            }
+            else if (e.Document.ControlName == "TestProxyUC")
+            {
+                e.Control = docTestProxyCtr;
             }
             else if (e.Document.ControlName == "UserAgentUC")
             {
