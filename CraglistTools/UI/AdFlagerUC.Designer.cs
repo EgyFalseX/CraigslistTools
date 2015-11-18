@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule6 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
             DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule1 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
             DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule2 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
             DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule3 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
@@ -66,7 +65,6 @@
             this.btnStartFlag = new DevExpress.XtraEditors.SimpleButton();
             this.btnAddPID = new DevExpress.XtraEditors.SimpleButton();
             this.ccbProxy = new DevExpress.XtraEditors.CheckedComboBoxEdit();
-            this.ccbAgent = new DevExpress.XtraEditors.CheckedComboBoxEdit();
             this.ccbCity = new DevExpress.XtraEditors.CheckedComboBoxEdit();
             this.cityBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tbSearchKeyword = new DevExpress.XtraEditors.TextEdit();
@@ -75,7 +73,6 @@
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -109,7 +106,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbcFlag.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbcSearch.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ccbProxy.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ccbAgent.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ccbCity.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cityBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbSearchKeyword.Properties)).BeginInit();
@@ -118,7 +114,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
@@ -279,7 +274,6 @@
             this.layoutControl1.Controls.Add(this.btnStartFlag);
             this.layoutControl1.Controls.Add(this.btnAddPID);
             this.layoutControl1.Controls.Add(this.ccbProxy);
-            this.layoutControl1.Controls.Add(this.ccbAgent);
             this.layoutControl1.Controls.Add(this.ccbCity);
             this.layoutControl1.Controls.Add(this.tbSearchKeyword);
             this.layoutControl1.Controls.Add(this.gridControlResult);
@@ -296,7 +290,7 @@
             // btnExportPIDs
             // 
             this.btnExportPIDs.Image = global::CraigslistTools.Properties.Resources.Excel16;
-            this.btnExportPIDs.Location = new System.Drawing.Point(12, 198);
+            this.btnExportPIDs.Location = new System.Drawing.Point(12, 180);
             this.btnExportPIDs.Name = "btnExportPIDs";
             this.btnExportPIDs.Size = new System.Drawing.Size(266, 22);
             this.btnExportPIDs.StyleController = this.layoutControl1;
@@ -307,7 +301,7 @@
             // btnSearch
             // 
             this.btnSearch.Image = global::CraigslistTools.Properties.Resources.find_16x16;
-            this.btnSearch.Location = new System.Drawing.Point(12, 132);
+            this.btnSearch.Location = new System.Drawing.Point(12, 108);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(266, 22);
             this.btnSearch.StyleController = this.layoutControl1;
@@ -318,12 +312,12 @@
             // gridControlPID
             // 
             this.gridControlPID.DataSource = this.flagUnitBindingSource;
-            this.gridControlPID.Location = new System.Drawing.Point(12, 224);
+            this.gridControlPID.Location = new System.Drawing.Point(12, 206);
             this.gridControlPID.MainView = this.gridViewPID;
             this.gridControlPID.Name = "gridControlPID";
             this.gridControlPID.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemCheckEditExe});
-            this.gridControlPID.Size = new System.Drawing.Size(266, 170);
+            this.gridControlPID.Size = new System.Drawing.Size(266, 185);
             this.gridControlPID.TabIndex = 8;
             this.gridControlPID.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewPID});
@@ -404,10 +398,10 @@
             this.ccbCategory.Size = new System.Drawing.Size(186, 20);
             this.ccbCategory.StyleController = this.layoutControl1;
             this.ccbCategory.TabIndex = 2;
-            conditionValidationRule6.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.IsNotBlank;
-            conditionValidationRule6.ErrorText = "This value is not valid";
-            conditionValidationRule6.ErrorType = DevExpress.XtraEditors.DXErrorProvider.ErrorType.Critical;
-            this.dxvp.SetValidationRule(this.ccbCategory, conditionValidationRule6);
+            conditionValidationRule1.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.IsNotBlank;
+            conditionValidationRule1.ErrorText = "This value is not valid";
+            conditionValidationRule1.ErrorType = DevExpress.XtraEditors.DXErrorProvider.ErrorType.Critical;
+            this.dxvp.SetValidationRule(this.ccbCategory, conditionValidationRule1);
             // 
             // categoryBindingSource
             // 
@@ -435,9 +429,9 @@
             // btnStartFlag
             // 
             this.btnStartFlag.Image = global::CraigslistTools.Properties.Resources.status_32x32;
-            this.btnStartFlag.Location = new System.Drawing.Point(12, 398);
+            this.btnStartFlag.Location = new System.Drawing.Point(12, 395);
             this.btnStartFlag.Name = "btnStartFlag";
-            this.btnStartFlag.Size = new System.Drawing.Size(266, 36);
+            this.btnStartFlag.Size = new System.Drawing.Size(266, 39);
             this.btnStartFlag.StyleController = this.layoutControl1;
             this.btnStartFlag.TabIndex = 9;
             this.btnStartFlag.Text = "Start Flag";
@@ -446,9 +440,9 @@
             // btnAddPID
             // 
             this.btnAddPID.Image = global::CraigslistTools.Properties.Resources.add_16x16;
-            this.btnAddPID.Location = new System.Drawing.Point(209, 158);
+            this.btnAddPID.Location = new System.Drawing.Point(209, 134);
             this.btnAddPID.Name = "btnAddPID";
-            this.btnAddPID.Size = new System.Drawing.Size(69, 36);
+            this.btnAddPID.Size = new System.Drawing.Size(69, 42);
             this.btnAddPID.StyleController = this.layoutControl1;
             this.btnAddPID.TabIndex = 7;
             this.btnAddPID.Text = "Add PID";
@@ -456,7 +450,7 @@
             // 
             // ccbProxy
             // 
-            this.ccbProxy.Location = new System.Drawing.Point(92, 108);
+            this.ccbProxy.Location = new System.Drawing.Point(92, 84);
             this.ccbProxy.Name = "ccbProxy";
             this.ccbProxy.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -467,29 +461,10 @@
             this.ccbProxy.Size = new System.Drawing.Size(186, 20);
             this.ccbProxy.StyleController = this.layoutControl1;
             this.ccbProxy.TabIndex = 4;
-            conditionValidationRule1.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.IsNotBlank;
-            conditionValidationRule1.ErrorText = "This value is not valid";
-            conditionValidationRule1.ErrorType = DevExpress.XtraEditors.DXErrorProvider.ErrorType.Critical;
-            this.dxvp.SetValidationRule(this.ccbProxy, conditionValidationRule1);
-            // 
-            // ccbAgent
-            // 
-            this.ccbAgent.Location = new System.Drawing.Point(92, 84);
-            this.ccbAgent.Name = "ccbAgent";
-            this.ccbAgent.Properties.AllowMultiSelect = true;
-            this.ccbAgent.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.ccbAgent.Properties.DataSource = this.userAgentBindingSource;
-            this.ccbAgent.Properties.DisplayMember = "UserAgentName";
-            this.ccbAgent.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
-            this.ccbAgent.Properties.ValueMember = "UserAgentName";
-            this.ccbAgent.Size = new System.Drawing.Size(186, 20);
-            this.ccbAgent.StyleController = this.layoutControl1;
-            this.ccbAgent.TabIndex = 3;
             conditionValidationRule2.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.IsNotBlank;
             conditionValidationRule2.ErrorText = "This value is not valid";
             conditionValidationRule2.ErrorType = DevExpress.XtraEditors.DXErrorProvider.ErrorType.Critical;
-            this.dxvp.SetValidationRule(this.ccbAgent, conditionValidationRule2);
+            this.dxvp.SetValidationRule(this.ccbProxy, conditionValidationRule2);
             // 
             // ccbCity
             // 
@@ -530,9 +505,9 @@
             // tbPID
             // 
             this.tbPID.EditValue = "";
-            this.tbPID.Location = new System.Drawing.Point(92, 158);
+            this.tbPID.Location = new System.Drawing.Point(92, 134);
             this.tbPID.Name = "tbPID";
-            this.tbPID.Size = new System.Drawing.Size(113, 36);
+            this.tbPID.Size = new System.Drawing.Size(113, 42);
             this.tbPID.StyleController = this.layoutControl1;
             this.tbPID.TabIndex = 6;
             // 
@@ -544,7 +519,6 @@
             this.layoutControlItem3,
             this.layoutControlItem5,
             this.layoutControlItem1,
-            this.layoutControlItem7,
             this.layoutControlItem8,
             this.layoutControlItem6,
             this.layoutControlItem9,
@@ -589,19 +563,10 @@
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextVisible = false;
             // 
-            // layoutControlItem7
-            // 
-            this.layoutControlItem7.Control = this.ccbAgent;
-            this.layoutControlItem7.Location = new System.Drawing.Point(0, 72);
-            this.layoutControlItem7.Name = "layoutControlItem7";
-            this.layoutControlItem7.Size = new System.Drawing.Size(270, 24);
-            this.layoutControlItem7.Text = "User agents";
-            this.layoutControlItem7.TextSize = new System.Drawing.Size(77, 13);
-            // 
             // layoutControlItem8
             // 
             this.layoutControlItem8.Control = this.ccbProxy;
-            this.layoutControlItem8.Location = new System.Drawing.Point(0, 96);
+            this.layoutControlItem8.Location = new System.Drawing.Point(0, 72);
             this.layoutControlItem8.Name = "layoutControlItem8";
             this.layoutControlItem8.Size = new System.Drawing.Size(270, 24);
             this.layoutControlItem8.Text = "Proxies";
@@ -610,10 +575,10 @@
             // layoutControlItem6
             // 
             this.layoutControlItem6.Control = this.tbPID;
-            this.layoutControlItem6.Location = new System.Drawing.Point(0, 146);
+            this.layoutControlItem6.Location = new System.Drawing.Point(0, 122);
             this.layoutControlItem6.MinSize = new System.Drawing.Size(94, 40);
             this.layoutControlItem6.Name = "layoutControlItem6";
-            this.layoutControlItem6.Size = new System.Drawing.Size(197, 40);
+            this.layoutControlItem6.Size = new System.Drawing.Size(197, 46);
             this.layoutControlItem6.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem6.Text = "PID";
             this.layoutControlItem6.TextSize = new System.Drawing.Size(77, 13);
@@ -621,10 +586,10 @@
             // layoutControlItem9
             // 
             this.layoutControlItem9.Control = this.btnAddPID;
-            this.layoutControlItem9.Location = new System.Drawing.Point(197, 146);
+            this.layoutControlItem9.Location = new System.Drawing.Point(197, 122);
             this.layoutControlItem9.MinSize = new System.Drawing.Size(73, 26);
             this.layoutControlItem9.Name = "layoutControlItem9";
-            this.layoutControlItem9.Size = new System.Drawing.Size(73, 40);
+            this.layoutControlItem9.Size = new System.Drawing.Size(73, 46);
             this.layoutControlItem9.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem9.Text = "Add PID";
             this.layoutControlItem9.TextSize = new System.Drawing.Size(0, 0);
@@ -633,10 +598,10 @@
             // layoutControlItem10
             // 
             this.layoutControlItem10.Control = this.btnStartFlag;
-            this.layoutControlItem10.Location = new System.Drawing.Point(0, 386);
+            this.layoutControlItem10.Location = new System.Drawing.Point(0, 383);
             this.layoutControlItem10.MinSize = new System.Drawing.Size(62, 26);
             this.layoutControlItem10.Name = "layoutControlItem10";
-            this.layoutControlItem10.Size = new System.Drawing.Size(270, 40);
+            this.layoutControlItem10.Size = new System.Drawing.Size(270, 43);
             this.layoutControlItem10.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem10.Text = "Start Flag";
             this.layoutControlItem10.TextSize = new System.Drawing.Size(0, 0);
@@ -674,9 +639,9 @@
             // layoutControlItem14
             // 
             this.layoutControlItem14.Control = this.gridControlPID;
-            this.layoutControlItem14.Location = new System.Drawing.Point(0, 212);
+            this.layoutControlItem14.Location = new System.Drawing.Point(0, 194);
             this.layoutControlItem14.Name = "layoutControlItem14";
-            this.layoutControlItem14.Size = new System.Drawing.Size(270, 174);
+            this.layoutControlItem14.Size = new System.Drawing.Size(270, 189);
             this.layoutControlItem14.Text = "PID Grid";
             this.layoutControlItem14.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem14.TextVisible = false;
@@ -691,7 +656,7 @@
             // layoutControlItem4
             // 
             this.layoutControlItem4.Control = this.btnSearch;
-            this.layoutControlItem4.Location = new System.Drawing.Point(0, 120);
+            this.layoutControlItem4.Location = new System.Drawing.Point(0, 96);
             this.layoutControlItem4.Name = "layoutControlItem4";
             this.layoutControlItem4.Size = new System.Drawing.Size(270, 26);
             this.layoutControlItem4.Text = "Search Button";
@@ -701,7 +666,7 @@
             // layoutControlItem2
             // 
             this.layoutControlItem2.Control = this.btnExportPIDs;
-            this.layoutControlItem2.Location = new System.Drawing.Point(0, 186);
+            this.layoutControlItem2.Location = new System.Drawing.Point(0, 168);
             this.layoutControlItem2.Name = "layoutControlItem2";
             this.layoutControlItem2.Size = new System.Drawing.Size(270, 26);
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
@@ -744,7 +709,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbcFlag.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbcSearch.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ccbProxy.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ccbAgent.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ccbCity.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cityBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbSearchKeyword.Properties)).EndInit();
@@ -753,7 +717,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
@@ -790,8 +753,6 @@
         private DevExpress.XtraEditors.CheckedComboBoxEdit ccbCity;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
         private DevExpress.XtraEditors.CheckedComboBoxEdit ccbProxy;
-        private DevExpress.XtraEditors.CheckedComboBoxEdit ccbAgent;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem7;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
         private DevExpress.XtraEditors.SimpleButton btnAddPID;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem9;

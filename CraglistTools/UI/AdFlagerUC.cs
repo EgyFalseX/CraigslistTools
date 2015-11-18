@@ -110,6 +110,8 @@ namespace CraigslistTools.UI
         }
         private void _searchBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
+            if (_searchBrowser.ReadyState != WebBrowserReadyState.Complete)
+                return;
             Datasource.SearchUnit item = (Datasource.SearchUnit)((WebBrowser)sender).Tag;
             List<string> PIDs = ParseSearchResult(_searchBrowser.DocumentText);
             string[] proxies = ccbProxy.EditValue.ToString().Split(',');
@@ -138,18 +140,21 @@ namespace CraigslistTools.UI
             {
                 return;
             }
+            if (!dxvp.Validate(ccbProxy))
+                return;
             string[] PIDs = tbPID.EditValue.ToString().Split('\n');
             string[] proxies = ccbProxy.EditValue.ToString().Split(',');
+            Random rnd = new Random();
             foreach (string pid in PIDs)
             {
                 if (pid.Trim() == string.Empty)
                    continue;
+                _flagList.Add(new Datasource.FlagUnit("", 0, "", pid.Trim(), "Unknown", "Unknown"));
                 foreach (string proxy in proxies)
                 {
-                    int id = new Random(0).Next(0, dsData.UserAgent.Count);
+                    int id = rnd.Next(0, dsData.UserAgent.Count);
                     Datasource.FlagUnit data = new Datasource.FlagUnit(proxy, dsData.UserAgent[id].UserAgentId, dsData.UserAgent[id].UserAgentName, pid.Trim(), "Unknown", "Unknown");
-                    _flagQue.Enqueue(data); _flagList.Add(new Datasource.FlagUnit("", 0, "", pid.Trim(), "Unknown", "Unknown"));
-                    //gridControlPID.DataSource = _flagList;
+                    _flagQue.Enqueue(data);
                     gridControlPID.RefreshDataSource();
                 }
             }
@@ -172,26 +177,38 @@ namespace CraigslistTools.UI
         }
         private void ExeFlag()
         {
+            //var t = new System.Threading.Thread(() => 
+            //{
+                
+            //});
+            //t.SetApartmentState(System.Threading.ApartmentState.STA);
+            //t.Start();
+
             if (_flagQue.Count == 0) return;
-                Datasource.FlagUnit flag = _flagQue.Dequeue();
+            Datasource.FlagUnit flag = _flagQue.Dequeue();
             while (!flag.Exe)
                 flag = _flagQue.Dequeue();
             WebBrowser _flagBrowser = new WebBrowser();
             _flagBrowser.DocumentCompleted += _flagBrowser_DocumentCompleted;
-            Cookie coki = new Cookie(flag.Proxy + flag.AgentId + flag.PID, flag.Proxy + flag.AgentId + flag.PID, Application.StartupPath + "/Cookie", "/");
+            Cookie coki = new Cookie("Cookie" + flag.PID, flag.Proxy + flag.AgentId + flag.PID, Application.StartupPath + "/Cookie", "/");
             Core.Core.InternetSetCookie(flag.Url, null, coki.ToString() + "; expires = Sun, 01-Jan-2017 00:00:00 GMT");
 
             ChangeUserAgent(flag.Agent);
             Core.Core.RefreshIESettings(flag.Proxy);
             _flagBrowser.Tag = flag;
             _tmr_flag.Tag = _flagBrowser;
-            _tmr_flag.Start();
             System.Threading.Thread.Sleep(1000 * 3);
-            _flagBrowser.Navigate(flag.Url);
+            _tmr_flag.Start();
+            _flagBrowser.Navigate(flag.Url);    
         }
         private void _flagBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
+            //System.Threading.ThreadPool.QueueUserWorkItem((o) => 
+            //{
+            //});
             WebBrowser _flagBrowser = (WebBrowser)sender;
+            if (_flagBrowser.ReadyState != WebBrowserReadyState.Complete)
+                return;
             _tmr_flag.Stop();
             pbcFlag.EditValue = (int)pbcFlag.EditValue + 1;
             Datasource.FlagUnit flg = (Datasource.FlagUnit)_flagBrowser.Tag;
@@ -204,7 +221,8 @@ namespace CraigslistTools.UI
             string[] Cookies = System.IO.Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.Cookies));
             foreach (string CookieFile in Cookies)
             {
-                try { System.IO.File.Delete(CookieFile); } catch { }
+                try { System.IO.File.Delete(CookieFile); }
+                catch { }
             }
             if (_flagBrowser.Document.Cookie != null)
             {
@@ -216,13 +234,14 @@ namespace CraigslistTools.UI
             row.FlagDate = DateTime.Now;
             row.ProxyIP = flg.Proxy; row.PostPID = Convert.ToDouble(flg.PID); row.UserAgentId = flg.AgentId; row.Status = flg.Status;
             dsData.FlagLog.AddFlagLogRow(row); row.EndEdit();
-            flagLogTableAdapter.Update(row);
+            flagLogTableAdapter.Update(row); Application.DoEvents();
 
             if (_flagQue.Count > 0) ExeFlag();
             else
             {
                 btnSearch.Enabled = btnStartFlag.Enabled = btnAddPID.Enabled = true; Application.DoEvents();
             }
+            
         }
         private void btnExportPIDs_Click(object sender, EventArgs e)
         {
@@ -248,15 +267,14 @@ namespace CraigslistTools.UI
         }
         private void btnStartFlag_Click(object sender, EventArgs e)
         {
-            if (!dxvp.Validate())
-                return;
+            //if (!dxvp.Validate())
+            //    return;
             dsData.FlagLog.Clear();
             btnSearch.Enabled = btnStartFlag.Enabled = btnAddPID.Enabled = false; Application.DoEvents();
 
             string[] proxies = ccbProxy.EditValue.ToString().Split(',');
 
             pbcFlag.Properties.Maximum = _flagQue.Count * proxies.Length; pbcFlag.EditValue = 0;
-            MessageBox.Show(pbcFlag.Properties.Maximum.ToString());
             ExeFlag();
         }
 
