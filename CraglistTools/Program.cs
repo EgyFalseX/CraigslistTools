@@ -17,9 +17,9 @@ namespace CraigslistTools
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
             BonusSkins.Register();
             SkinManager.EnableFormSkins();
+            Core.HMA.Init();
             Application.Run(new MainFrm());
         }
     }

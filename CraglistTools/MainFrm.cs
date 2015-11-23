@@ -11,7 +11,8 @@ namespace CraigslistTools
 {
     public partial class MainFrm : DevExpress.XtraBars.Ribbon.RibbonForm
     {
-        UI.AdFlagerUC docAdFlagerCtr = new UI.AdFlagerUC();
+        UI.AdFlager_ProxyUC docAdFlagerProxyCtr = new UI.AdFlager_ProxyUC();
+        UI.AdFlager_HMAUC docAdFlagerHMACtr = new UI.AdFlager_HMAUC();
         UI.ProxyUC docProxyCtr = new UI.ProxyUC();
         UI.CityUC docCityCtr = new UI.CityUC();
         UI.CategoryUC docCategoryCtr = new UI.CategoryUC();
@@ -41,8 +42,13 @@ namespace CraigslistTools
         }
         private void bbiAddFlager_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            docAdFlagerCtr =new UI.AdFlagerUC();
-            ActivateDoc(docAdFlagerCtr.Name, e.Item.Caption, e.Item.Glyph);
+            docAdFlagerProxyCtr =new UI.AdFlager_ProxyUC();
+            ActivateDoc(docAdFlagerProxyCtr.Name, e.Item.Caption, e.Item.Glyph);
+        }
+        private void bbiFlagAddFlagerHMA_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            docAdFlagerHMACtr = new UI.AdFlager_HMAUC();
+            ActivateDoc(docAdFlagerHMACtr.Name, e.Item.Caption, e.Item.Glyph);
         }
         private void bbiProxyEditor_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
@@ -73,9 +79,13 @@ namespace CraigslistTools
         {
             if (e.Control != null)
                 return;
-            if (e.Document.ControlName == "AdFlagerUC")
+            if (e.Document.ControlName == "AdFlager_ProxyUC")
             {
-                e.Control = docAdFlagerCtr;
+                e.Control = docAdFlagerProxyCtr;
+            }
+            if (e.Document.ControlName == "AdFlager_HMAUC")
+            {
+                e.Control = docAdFlagerHMACtr;
             }
             else if (e.Document.ControlName == "ProxyUC")
             {
@@ -99,6 +109,7 @@ namespace CraigslistTools
             }
         }
 
+        
         
     }
 }

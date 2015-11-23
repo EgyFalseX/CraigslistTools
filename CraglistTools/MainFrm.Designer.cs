@@ -28,19 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainFrm));
             this.ribbonControl1 = new DevExpress.XtraBars.Ribbon.RibbonControl();
-            this.bbiFlagAddFlager = new DevExpress.XtraBars.BarButtonItem();
+            this.bbiFlagAddFlagerProxy = new DevExpress.XtraBars.BarButtonItem();
             this.bbiFlagProxyEditor = new DevExpress.XtraBars.BarButtonItem();
             this.bbiFlagCityEditor = new DevExpress.XtraBars.BarButtonItem();
             this.bbiFlagUserAgentEditor = new DevExpress.XtraBars.BarButtonItem();
             this.bbiFlagCategoryEditor = new DevExpress.XtraBars.BarButtonItem();
+            this.bbiTestProxy = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPageFlag = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupCraigslistCode = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupCraigslistData = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.documentManagerMain = new DevExpress.XtraBars.Docking2010.DocumentManager();
-            this.tabbedViewMain = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView();
-            this.bbiTestProxy = new DevExpress.XtraBars.BarButtonItem();
+            this.documentManagerMain = new DevExpress.XtraBars.Docking2010.DocumentManager(this.components);
+            this.tabbedViewMain = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
+            this.bbiFlagAddFlagerHMA = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.documentManagerMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedViewMain)).BeginInit();
@@ -51,29 +53,30 @@
             this.ribbonControl1.ExpandCollapseItem.Id = 0;
             this.ribbonControl1.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
             this.ribbonControl1.ExpandCollapseItem,
-            this.bbiFlagAddFlager,
+            this.bbiFlagAddFlagerProxy,
             this.bbiFlagProxyEditor,
             this.bbiFlagCityEditor,
             this.bbiFlagUserAgentEditor,
             this.bbiFlagCategoryEditor,
-            this.bbiTestProxy});
+            this.bbiTestProxy,
+            this.bbiFlagAddFlagerHMA});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 7;
+            this.ribbonControl1.MaxItemId = 8;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPageFlag});
             this.ribbonControl1.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2010;
             this.ribbonControl1.Size = new System.Drawing.Size(758, 146);
             // 
-            // bbiFlagAddFlager
+            // bbiFlagAddFlagerProxy
             // 
-            this.bbiFlagAddFlager.Caption = "Flagging";
-            this.bbiFlagAddFlager.CategoryGuid = new System.Guid("6ffddb2b-9015-4d97-a4c1-91613e0ef537");
-            this.bbiFlagAddFlager.Glyph = global::CraigslistTools.Properties.Resources.status_16x16;
-            this.bbiFlagAddFlager.Id = 1;
-            this.bbiFlagAddFlager.LargeGlyph = global::CraigslistTools.Properties.Resources.status_32x32;
-            this.bbiFlagAddFlager.Name = "bbiFlagAddFlager";
-            this.bbiFlagAddFlager.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiAddFlager_ItemClick);
+            this.bbiFlagAddFlagerProxy.Caption = "Flagging Proxy";
+            this.bbiFlagAddFlagerProxy.CategoryGuid = new System.Guid("6ffddb2b-9015-4d97-a4c1-91613e0ef537");
+            this.bbiFlagAddFlagerProxy.Glyph = global::CraigslistTools.Properties.Resources.status_16x16;
+            this.bbiFlagAddFlagerProxy.Id = 1;
+            this.bbiFlagAddFlagerProxy.LargeGlyph = global::CraigslistTools.Properties.Resources.status_32x32;
+            this.bbiFlagAddFlagerProxy.Name = "bbiFlagAddFlagerProxy";
+            this.bbiFlagAddFlagerProxy.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiAddFlager_ItemClick);
             // 
             // bbiFlagProxyEditor
             // 
@@ -117,6 +120,16 @@
             this.bbiFlagCategoryEditor.Name = "bbiFlagCategoryEditor";
             this.bbiFlagCategoryEditor.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiFlagCategoryEditor_ItemClick);
             // 
+            // bbiTestProxy
+            // 
+            this.bbiTestProxy.Caption = "Test Proxy";
+            this.bbiTestProxy.CategoryGuid = new System.Guid("6ffddb2b-9015-4d97-a4c1-91613e0ef537");
+            this.bbiTestProxy.Glyph = global::CraigslistTools.Properties.Resources.TestProxy16;
+            this.bbiTestProxy.Id = 6;
+            this.bbiTestProxy.LargeGlyph = global::CraigslistTools.Properties.Resources.TestProxy32;
+            this.bbiTestProxy.Name = "bbiTestProxy";
+            this.bbiTestProxy.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiTestProxy_ItemClick);
+            // 
             // ribbonPageFlag
             // 
             this.ribbonPageFlag.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -138,7 +151,8 @@
             // 
             // ribbonPageGroupCraigslistData
             // 
-            this.ribbonPageGroupCraigslistData.ItemLinks.Add(this.bbiFlagAddFlager);
+            this.ribbonPageGroupCraigslistData.ItemLinks.Add(this.bbiFlagAddFlagerProxy);
+            this.ribbonPageGroupCraigslistData.ItemLinks.Add(this.bbiFlagAddFlagerHMA);
             this.ribbonPageGroupCraigslistData.Name = "ribbonPageGroupCraigslistData";
             this.ribbonPageGroupCraigslistData.Text = "Data";
             // 
@@ -154,15 +168,15 @@
             // 
             this.tabbedViewMain.QueryControl += new DevExpress.XtraBars.Docking2010.Views.QueryControlEventHandler(this.tabbedViewMain_QueryControl);
             // 
-            // bbiTestProxy
+            // bbiFlagAddFlagerHMA
             // 
-            this.bbiTestProxy.Caption = "Test Proxy";
-            this.bbiTestProxy.CategoryGuid = new System.Guid("6ffddb2b-9015-4d97-a4c1-91613e0ef537");
-            this.bbiTestProxy.Glyph = global::CraigslistTools.Properties.Resources.TestProxy16;
-            this.bbiTestProxy.Id = 6;
-            this.bbiTestProxy.LargeGlyph = global::CraigslistTools.Properties.Resources.TestProxy32;
-            this.bbiTestProxy.Name = "bbiTestProxy";
-            this.bbiTestProxy.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiTestProxy_ItemClick);
+            this.bbiFlagAddFlagerHMA.Caption = "Flagging HMA";
+            this.bbiFlagAddFlagerHMA.CategoryGuid = new System.Guid("6ffddb2b-9015-4d97-a4c1-91613e0ef537");
+            this.bbiFlagAddFlagerHMA.Glyph = global::CraigslistTools.Properties.Resources.status_16x16;
+            this.bbiFlagAddFlagerHMA.Id = 7;
+            this.bbiFlagAddFlagerHMA.LargeGlyph = global::CraigslistTools.Properties.Resources.status_32x32;
+            this.bbiFlagAddFlagerHMA.Name = "bbiFlagAddFlagerHMA";
+            this.bbiFlagAddFlagerHMA.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiFlagAddFlagerHMA_ItemClick);
             // 
             // MainFrm
             // 
@@ -191,7 +205,7 @@
         private DevExpress.XtraBars.Ribbon.RibbonControl ribbonControl1;
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPageFlag;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupCraigslistCode;
-        private DevExpress.XtraBars.BarButtonItem bbiFlagAddFlager;
+        private DevExpress.XtraBars.BarButtonItem bbiFlagAddFlagerProxy;
         private DevExpress.XtraBars.Docking2010.DocumentManager documentManagerMain;
         private DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView tabbedViewMain;
         private DevExpress.XtraBars.BarButtonItem bbiFlagProxyEditor;
@@ -200,6 +214,7 @@
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupCraigslistData;
         private DevExpress.XtraBars.BarButtonItem bbiFlagCategoryEditor;
         private DevExpress.XtraBars.BarButtonItem bbiTestProxy;
+        private DevExpress.XtraBars.BarButtonItem bbiFlagAddFlagerHMA;
     }
 }
 

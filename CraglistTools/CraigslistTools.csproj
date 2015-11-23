@@ -80,6 +80,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Core.cs" />
+    <Compile Include="Core\HMA.cs" />
+    <Compile Include="Core\Win32.cs" />
     <Compile Include="Datasource\dsData.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -100,11 +102,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UI\AdFlagerUC.cs">
+    <Compile Include="UI\AdFlager_ProxyUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\AdFlagerUC.Designer.cs">
-      <DependentUpon>AdFlagerUC.cs</DependentUpon>
+    <Compile Include="UI\AdFlager_ProxyUC.Designer.cs">
+      <DependentUpon>AdFlager_ProxyUC.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\CategoryUC.cs">
       <SubType>UserControl</SubType>
@@ -117,6 +119,12 @@
     </Compile>
     <Compile Include="UI\CityUC.Designer.cs">
       <DependentUpon>CityUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\AdFlager_HMAUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\AdFlager_HMAUC.Designer.cs">
+      <DependentUpon>AdFlager_HMAUC.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\TestProxyUC.cs">
       <SubType>UserControl</SubType>
@@ -141,6 +149,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\CityUC.resx">
       <DependentUpon>CityUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\AdFlager_HMAUC.resx">
+      <DependentUpon>AdFlager_HMAUC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\TestProxyUC.resx">
       <DependentUpon>TestProxyUC.cs</DependentUpon>
@@ -169,8 +180,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="UI\AdFlagerUC.resx">
-      <DependentUpon>AdFlagerUC.cs</DependentUpon>
+    <EmbeddedResource Include="UI\AdFlager_ProxyUC.resx">
+      <DependentUpon>AdFlager_ProxyUC.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Datasource\dsData.xsc">
       <DependentUpon>dsData.xsd</DependentUpon>
@@ -209,6 +220,8 @@
   <ItemGroup>
     <Content Include="craigslist_Icon.ico" />
     <Content Include="db.mdb" />
+    <None Include="Resources\Online16.png" />
+    <None Include="Resources\Offline16.png" />
     <None Include="Resources\TestProxy32.png" />
     <None Include="Resources\TestProxy16.png" />
     <None Include="Resources\properties_16x16.png" />

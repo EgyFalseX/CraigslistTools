@@ -1,6 +1,6 @@
 ﻿namespace CraigslistTools.UI
 {
-    partial class AdFlagerUC
+    partial class AdFlager_ProxyUC
     {
         /// <summary> 
         /// Required designer variable.
@@ -684,12 +684,12 @@
             // 
             this.categoryTableAdapter.ClearBeforeFill = true;
             // 
-            // AdFlagerUC
+            // AdFlager_ProxyUC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.layoutControl1);
-            this.Name = "AdFlagerUC";
+            this.Name = "AdFlager_ProxyUC";
             this.Size = new System.Drawing.Size(870, 468);
             ((System.ComponentModel.ISupportInitialize)(this.proxyBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dsData)).EndInit();

@@ -153,6 +153,26 @@ namespace CraigslistTools.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Offline16 {
+            get {
+                object obj = ResourceManager.GetObject("Offline16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Online16 {
+            get {
+                object obj = ResourceManager.GetObject("Online16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap properties_16x16 {
             get {
                 object obj = ResourceManager.GetObject("properties_16x16", resourceCulture);

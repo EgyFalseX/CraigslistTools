@@ -13,19 +13,26 @@ using System.Net;
 
 namespace CraigslistTools.UI
 {
-    public partial class AdFlagerUC : DevExpress.XtraEditors.XtraUserControl
+    public partial class AdFlager_HMAUC : DevExpress.XtraEditors.XtraUserControl
     {
         WebBrowser _searchBrowser = new WebBrowser();
         //WebBrowser _flagBrowser = new WebBrowser();
         Queue<Datasource.SearchUnit> _searchList = new Queue<Datasource.SearchUnit>();
-        Queue<Datasource.FlagUnit> _flagQue = new Queue<Datasource.FlagUnit>();
+        List<Datasource.FlagUnit> _flagQue = new List<Datasource.FlagUnit>();
         List<Datasource.FlagUnit> _flagList = new List<Datasource.FlagUnit>();
         Timer _tmr_flag = new Timer();
         string _craigslist = "craigslist.org";
         string _postpid = "data-pid=\"";
         string _flagMSG = "thanks for flagging!";
-        
-        public AdFlagerUC()
+        int _flagLoop = 0;
+        int _maxFlagLoop = 0;
+
+        int _flagoffset = 0;
+
+        int _changeIPoffset = 0;
+        int _maxIpUsage = 10;
+
+        public AdFlager_HMAUC()
         {
             InitializeComponent();
             _searchBrowser.DocumentCompleted += _searchBrowser_DocumentCompleted;
@@ -40,6 +47,12 @@ namespace CraigslistTools.UI
 
             _tmr_flag.Interval = 1000 * 10;
             _tmr_flag.Tick += _tmr_flag_Tick;
+
+            Core.HMA.Init();
+            if (Core.HMA.Status() == Core.HMA.HMA_State.Connected)
+                imgHMA_Status.Image = Properties.Resources.Online16;
+            else
+                imgHMA_Status.Image = Properties.Resources.Offline16;
         }
         
         public void ChangeUserAgent(string Agent)
@@ -114,17 +127,19 @@ namespace CraigslistTools.UI
                 return;
             Datasource.SearchUnit item = (Datasource.SearchUnit)((WebBrowser)sender).Tag;
             List<string> PIDs = ParseSearchResult(_searchBrowser.DocumentText);
-            string[] proxies = ccbProxy.EditValue.ToString().Split(',');
+            string[] proxies = imgHMA_Status.EditValue.ToString().Split(',');
             Random rnd = new Random(0);
             foreach (string pid in PIDs)
             {
-                _flagList.Add(new Datasource.FlagUnit("", 0, "", pid, item.City, item.Category));
-                foreach (string proxy in proxies)
+                foreach (Datasource.FlagUnit exist in _flagList)
                 {
-                    int id = rnd.Next(0, dsData.UserAgent.Count);
-                    Datasource.FlagUnit data = new Datasource.FlagUnit(proxy, dsData.UserAgent[id].UserAgentId, dsData.UserAgent[id].UserAgentName, pid, item.City, item.Category);
-                    _flagQue.Enqueue(data);
+                    if (exist.PID == pid)
+                        continue;
                 }
+                _flagList.Add(new Datasource.FlagUnit("", 0, "", pid, item.City, item.Category));
+                int id = rnd.Next(0, dsData.UserAgent.Count);
+                Datasource.FlagUnit data = new Datasource.FlagUnit("HMA", dsData.UserAgent[id].UserAgentId, dsData.UserAgent[id].UserAgentName, pid, item.City, item.Category);
+                _flagQue.Add(data);
             }
             if (_searchList.Count > 0)
                 ExeSearch();
@@ -137,29 +152,28 @@ namespace CraigslistTools.UI
         private void btnAddPID_Click(object sender, EventArgs e)
         {
             if (tbPID.EditValue == null || tbPID.EditValue.ToString().Trim() == string.Empty)
-            {
-                return;
-            }
-            if (!dxvp.Validate(ccbProxy))
                 return;
             string[] PIDs = tbPID.EditValue.ToString().Split('\n');
-            string[] proxies = ccbProxy.EditValue.ToString().Split(',');
             Random rnd = new Random();
             foreach (string pid in PIDs)
             {
                 if (pid.Trim() == string.Empty)
                    continue;
                 _flagList.Add(new Datasource.FlagUnit("", 0, "", pid.Trim(), "Unknown", "Unknown"));
-                foreach (string proxy in proxies)
-                {
-                    int id = rnd.Next(0, dsData.UserAgent.Count);
-                    Datasource.FlagUnit data = new Datasource.FlagUnit(proxy, dsData.UserAgent[id].UserAgentId, dsData.UserAgent[id].UserAgentName, pid.Trim(), "Unknown", "Unknown");
-                    _flagQue.Enqueue(data);
-                    gridControlPID.RefreshDataSource();
-                }
+                int id = rnd.Next(0, dsData.UserAgent.Count);
+                Datasource.FlagUnit data = new Datasource.FlagUnit("HMA", dsData.UserAgent[id].UserAgentId, dsData.UserAgent[id].UserAgentName, pid.Trim(), "Unknown", "Unknown");
+                _flagQue.Add(data);
+                gridControlPID.RefreshDataSource();
             }
-
             tbPID.EditValue = null;
+        }
+        private void beKMAPath_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            if (ofd.ShowDialog() != DialogResult.OK)
+                return;
+            beKMAPath.EditValue = ofd.FileName;
+            Core.HMA.KMAPath = ofd.FileName;
         }
         private void repositoryItemCheckEditExe_CheckedChanged(object sender, EventArgs e)
         {
@@ -177,29 +191,51 @@ namespace CraigslistTools.UI
         }
         private void ExeFlag()
         {
-            //var t = new System.Threading.Thread(() => 
-            //{
-                
-            //});
+            //var t = new System.Threading.Thread(() => {   });
             //t.SetApartmentState(System.Threading.ApartmentState.STA);
             //t.Start();
+            if (_maxIpUsage == _changeIPoffset)
+            {
+                Core.HMA.ChangeIP();
+                System.Threading.Thread.Sleep(2000);
+                while (Core.HMA.Status() == Core.HMA.HMA_State.Not_Connected)
+                {
+                    System.Threading.Thread.Sleep(1000);
+                    Application.DoEvents();
+                }
+                _changeIPoffset = 0;
+            }
 
-            if (_flagQue.Count == 0) return;
-            Datasource.FlagUnit flag = _flagQue.Dequeue();
+            if (_flagoffset == _flagQue.Count)
+            {
+                _flagoffset = 0;
+                _flagLoop++;
+            }
+            if (_flagLoop == _maxFlagLoop)
+            {
+                btnSearch.Enabled = btnStartFlag.Enabled = btnAddPID.Enabled = true; Application.DoEvents();
+                MessageBox.Show("Flagging Completed ...", "Done ...", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            Datasource.FlagUnit flag = _flagQue[_flagoffset];
+            _flagoffset++;
             while (!flag.Exe)
-                flag = _flagQue.Dequeue();
+            {
+                _flagoffset++;
+                flag = _flagQue[_flagoffset];
+            }
             WebBrowser _flagBrowser = new WebBrowser();
             _flagBrowser.DocumentCompleted += _flagBrowser_DocumentCompleted;
             Cookie coki = new Cookie("Cookie" + flag.PID, flag.Proxy + flag.AgentId + flag.PID, Application.StartupPath + "/Cookie", "/");
             Core.Core.InternetSetCookie(flag.Url, null, coki.ToString() + "; expires = Sun, 01-Jan-2017 00:00:00 GMT");
 
             ChangeUserAgent(flag.Agent);
-            Core.Core.RefreshIESettings(flag.Proxy);
             _flagBrowser.Tag = flag;
             _tmr_flag.Tag = _flagBrowser;
-            System.Threading.Thread.Sleep(1000 * 3);
+            //System.Threading.Thread.Sleep(1000 * 3);
             _tmr_flag.Start();
-            _flagBrowser.Navigate(flag.Url);    
+            _flagBrowser.Navigate(flag.Url);
+            //_changeIPoffset++;
         }
         private void _flagBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
@@ -228,6 +264,11 @@ namespace CraigslistTools.UI
             {
                 _flagBrowser.Document.Cookie.Remove(0, _flagBrowser.Document.Cookie.Length);
                 _flagBrowser.Document.Cookie = string.Empty;
+            }
+            if (!_flagBrowser.IsDisposed)
+            {
+                _flagBrowser.DocumentCompleted -= _flagBrowser_DocumentCompleted;
+                _flagBrowser.Dispose();
             }
             //Add Row
             Datasource.dsData.FlagLogRow row = dsData.FlagLog.NewFlagLogRow();
@@ -269,14 +310,18 @@ namespace CraigslistTools.UI
         {
             //if (!dxvp.Validate())
             //    return;
+            //if (Core.HMA.Status() == Core.HMA.HMA_State.Not_Connected)
+            //{
+            //    MessageBox.Show("HMA is not connected ...!");
+            //    return;
+            //}
             dsData.FlagLog.Clear();
             btnSearch.Enabled = btnStartFlag.Enabled = btnAddPID.Enabled = false; Application.DoEvents();
 
-            string[] proxies = ccbProxy.EditValue.ToString().Split(',');
-
-            pbcFlag.Properties.Maximum = _flagQue.Count * proxies.Length; pbcFlag.EditValue = 0;
+            pbcFlag.Properties.Maximum = _flagQue.Count * _flagLoop; pbcFlag.EditValue = 0;
+            _maxFlagLoop = Convert.ToInt32(seFlagCount.EditValue); _flagLoop = 0;
             ExeFlag();
         }
-
+        
     }
 }
