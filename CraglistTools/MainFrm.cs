@@ -18,6 +18,9 @@ namespace CraigslistTools
         UI.CategoryUC docCategoryCtr = new UI.CategoryUC();
         UI.UserAgentUC docUserAgentCtr = new UI.UserAgentUC();
         UI.TestProxyUC docTestProxyCtr = new UI.TestProxyUC();
+        UI.LoginInfoUC docLoginInfoCtr = new UI.LoginInfoUC();
+        UI.ActivityUC docActivityCtr = new UI.ActivityUC();
+        UI.ActivityCategoryUC docActivityCategoryCtr = new UI.ActivityCategoryUC();
         public MainFrm()
         {
             InitializeComponent();
@@ -75,6 +78,21 @@ namespace CraigslistTools
             docTestProxyCtr = new UI.TestProxyUC();
             ActivateDoc(docTestProxyCtr.Name, e.Item.Caption, e.Item.Glyph);
         }
+        private void bbiFlagLoginInfoEditor_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            docLoginInfoCtr = new UI.LoginInfoUC();
+            ActivateDoc(docLoginInfoCtr.Name, e.Item.Caption, e.Item.Glyph);
+        }
+        private void bbiFlagAddFlagerActivity_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            docActivityCtr = new UI.ActivityUC();
+            ActivateDoc(docActivityCtr.Name, e.Item.Caption, e.Item.Glyph);
+        }
+        private void bbiFlagActivityCategoryEditor_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            docActivityCategoryCtr = new UI.ActivityCategoryUC();
+            ActivateDoc(docActivityCategoryCtr.Name, e.Item.Caption, e.Item.Glyph);
+        }
         private void tabbedViewMain_QueryControl(object sender, DevExpress.XtraBars.Docking2010.Views.QueryControlEventArgs e)
         {
             if (e.Control != null)
@@ -107,9 +125,20 @@ namespace CraigslistTools
             {
                 e.Control = docUserAgentCtr;
             }
+            else if (e.Document.ControlName == "LoginInfoUC")
+            {
+                e.Control = docLoginInfoCtr;
+            }
+            else if (e.Document.ControlName == "ActivityUC")
+            {
+                e.Control = docActivityCtr;
+            }
+            else if (e.Document.ControlName == "ActivityCategoryUC")
+            {
+                e.Control = docActivityCategoryCtr;
+            }
         }
 
-        
-        
+                
     }
 }

@@ -44,5 +44,25 @@ namespace CraigslistTools.Core
             bool iReturn = InternetSetOption(IntPtr.Zero, INTERNET_OPTION_PROXY, intptrStruct, Marshal.SizeOf(struct_IPI));
         }
         #endregion
+
+        public enum FlagType
+        {
+            Flag_View_0 = 0,
+            Flag_HaveProblem_28 = 28,
+            Flag_Repeted_15 = 15,
+            Flag_BestOf_9 = 9,
+        }
+        public enum TemplateType
+        {
+            Login = 1,
+            Nav_CL,
+            Nav_Cat,
+            Nav_View,
+            Nav_Spam,
+            Nav_Best,
+            Wait,
+            Clean_Agent,
+            Proxy,
+        }
     }
 }

@@ -28,30 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule3 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
-            DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule4 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
             DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule1 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
-            this.proxyBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule2 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
+            DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule3 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
+            this.proxyBindingSource = new System.Windows.Forms.BindingSource();
             this.dsData = new CraigslistTools.Datasource.dsData();
             this.proxyTableAdapter = new CraigslistTools.Datasource.dsDataTableAdapters.ProxyTableAdapter();
             this.gridControlResult = new DevExpress.XtraGrid.GridControl();
-            this.flagLogBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.flagLogBindingSource = new System.Windows.Forms.BindingSource();
             this.gridViewResult = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colPostPID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colFlagDate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colProxyIP = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colUserAgentId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemLookUpEditUserAgentId = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
-            this.userAgentBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.userAgentBindingSource = new System.Windows.Forms.BindingSource();
             this.colStatus = new DevExpress.XtraGrid.Columns.GridColumn();
             this.flagLogTableAdapter = new CraigslistTools.Datasource.dsDataTableAdapters.FlagLogTableAdapter();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.beKMAPath = new DevExpress.XtraEditors.ButtonEdit();
             this.seFlagCount = new DevExpress.XtraEditors.SpinEdit();
             this.btnExportPIDs = new DevExpress.XtraEditors.SimpleButton();
             this.btnSearch = new DevExpress.XtraEditors.SimpleButton();
             this.gridControlPID = new DevExpress.XtraGrid.GridControl();
-            this.flagUnitBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.flagUnitBindingSource = new System.Windows.Forms.BindingSource();
             this.gridViewPID = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colExe = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemCheckEditExe = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
@@ -59,13 +59,13 @@
             this.colCity = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCategory = new DevExpress.XtraGrid.Columns.GridColumn();
             this.ccbCategory = new DevExpress.XtraEditors.CheckedComboBoxEdit();
-            this.categoryBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.categoryBindingSource = new System.Windows.Forms.BindingSource();
             this.pbcFlag = new DevExpress.XtraEditors.ProgressBarControl();
             this.pbcSearch = new DevExpress.XtraEditors.ProgressBarControl();
             this.btnStartFlag = new DevExpress.XtraEditors.SimpleButton();
             this.btnAddPID = new DevExpress.XtraEditors.SimpleButton();
             this.ccbCity = new DevExpress.XtraEditors.CheckedComboBoxEdit();
-            this.cityBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.cityBindingSource = new System.Windows.Forms.BindingSource();
             this.tbSearchKeyword = new DevExpress.XtraEditors.TextEdit();
             this.tbPID = new DevExpress.XtraEditors.MemoEdit();
             this.imgHMA_Status = new DevExpress.XtraEditors.PictureEdit();
@@ -85,12 +85,11 @@
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem15 = new DevExpress.XtraLayout.LayoutControlItem();
             this.cityTableAdapter = new CraigslistTools.Datasource.dsDataTableAdapters.CityTableAdapter();
             this.userAgentTableAdapter = new CraigslistTools.Datasource.dsDataTableAdapters.UserAgentTableAdapter();
-            this.dxvp = new DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider(this.components);
+            this.dxvp = new DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider();
             this.categoryTableAdapter = new CraigslistTools.Datasource.dsDataTableAdapters.CategoryTableAdapter();
-            this.beKMAPath = new DevExpress.XtraEditors.ButtonEdit();
-            this.layoutControlItem15 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.proxyBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dsData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlResult)).BeginInit();
@@ -100,6 +99,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.userAgentBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.beKMAPath.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.seFlagCount.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlPID)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.flagUnitBindingSource)).BeginInit();
@@ -130,9 +130,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dxvp)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.beKMAPath.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem15)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dxvp)).BeginInit();
             this.SuspendLayout();
             // 
             // proxyBindingSource
@@ -290,11 +289,22 @@
             this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
-            this.layoutControl1.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(496, 130, 339, 471);
+            this.layoutControl1.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(833, 164, 419, 471);
             this.layoutControl1.Root = this.layoutControlGroup1;
             this.layoutControl1.Size = new System.Drawing.Size(870, 468);
             this.layoutControl1.TabIndex = 3;
             this.layoutControl1.Text = "layoutControl1";
+            // 
+            // beKMAPath
+            // 
+            this.beKMAPath.Location = new System.Drawing.Point(92, 108);
+            this.beKMAPath.Name = "beKMAPath";
+            this.beKMAPath.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.beKMAPath.Size = new System.Drawing.Size(186, 20);
+            this.beKMAPath.StyleController = this.layoutControl1;
+            this.beKMAPath.TabIndex = 2;
+            this.beKMAPath.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.beKMAPath_ButtonClick);
             // 
             // seFlagCount
             // 
@@ -432,10 +442,10 @@
             this.ccbCategory.Size = new System.Drawing.Size(186, 20);
             this.ccbCategory.StyleController = this.layoutControl1;
             this.ccbCategory.TabIndex = 2;
-            conditionValidationRule3.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.IsNotBlank;
-            conditionValidationRule3.ErrorText = "This value is not valid";
-            conditionValidationRule3.ErrorType = DevExpress.XtraEditors.DXErrorProvider.ErrorType.Critical;
-            this.dxvp.SetValidationRule(this.ccbCategory, conditionValidationRule3);
+            conditionValidationRule1.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.IsNotBlank;
+            conditionValidationRule1.ErrorText = "This value is not valid";
+            conditionValidationRule1.ErrorType = DevExpress.XtraEditors.DXErrorProvider.ErrorType.Critical;
+            this.dxvp.SetValidationRule(this.ccbCategory, conditionValidationRule1);
             // 
             // categoryBindingSource
             // 
@@ -496,10 +506,10 @@
             this.ccbCity.Size = new System.Drawing.Size(186, 20);
             this.ccbCity.StyleController = this.layoutControl1;
             this.ccbCity.TabIndex = 1;
-            conditionValidationRule4.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.IsNotBlank;
-            conditionValidationRule4.ErrorText = "This value is not valid";
-            conditionValidationRule4.ErrorType = DevExpress.XtraEditors.DXErrorProvider.ErrorType.Critical;
-            this.dxvp.SetValidationRule(this.ccbCity, conditionValidationRule4);
+            conditionValidationRule2.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.IsNotBlank;
+            conditionValidationRule2.ErrorText = "This value is not valid";
+            conditionValidationRule2.ErrorType = DevExpress.XtraEditors.DXErrorProvider.ErrorType.Critical;
+            this.dxvp.SetValidationRule(this.ccbCity, conditionValidationRule2);
             // 
             // cityBindingSource
             // 
@@ -513,10 +523,10 @@
             this.tbSearchKeyword.Size = new System.Drawing.Size(186, 20);
             this.tbSearchKeyword.StyleController = this.layoutControl1;
             this.tbSearchKeyword.TabIndex = 0;
-            conditionValidationRule1.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.IsNotBlank;
-            conditionValidationRule1.ErrorText = "This value is not valid";
-            conditionValidationRule1.ErrorType = DevExpress.XtraEditors.DXErrorProvider.ErrorType.Critical;
-            this.dxvp.SetValidationRule(this.tbSearchKeyword, conditionValidationRule1);
+            conditionValidationRule3.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.IsNotBlank;
+            conditionValidationRule3.ErrorText = "This value is not valid";
+            conditionValidationRule3.ErrorType = DevExpress.XtraEditors.DXErrorProvider.ErrorType.Critical;
+            this.dxvp.SetValidationRule(this.tbSearchKeyword, conditionValidationRule3);
             // 
             // tbPID
             // 
@@ -710,6 +720,15 @@
             this.layoutControlItem7.Text = "Flag Count";
             this.layoutControlItem7.TextSize = new System.Drawing.Size(77, 13);
             // 
+            // layoutControlItem15
+            // 
+            this.layoutControlItem15.Control = this.beKMAPath;
+            this.layoutControlItem15.Location = new System.Drawing.Point(0, 96);
+            this.layoutControlItem15.Name = "layoutControlItem15";
+            this.layoutControlItem15.Size = new System.Drawing.Size(270, 24);
+            this.layoutControlItem15.Text = "KMA Path";
+            this.layoutControlItem15.TextSize = new System.Drawing.Size(77, 13);
+            // 
             // cityTableAdapter
             // 
             this.cityTableAdapter.ClearBeforeFill = true;
@@ -721,26 +740,6 @@
             // categoryTableAdapter
             // 
             this.categoryTableAdapter.ClearBeforeFill = true;
-            // 
-            // beKMAPath
-            // 
-            this.beKMAPath.Location = new System.Drawing.Point(92, 108);
-            this.beKMAPath.Name = "beKMAPath";
-            this.beKMAPath.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.beKMAPath.Size = new System.Drawing.Size(186, 20);
-            this.beKMAPath.StyleController = this.layoutControl1;
-            this.beKMAPath.TabIndex = 2;
-            this.beKMAPath.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.beKMAPath_ButtonClick);
-            // 
-            // layoutControlItem15
-            // 
-            this.layoutControlItem15.Control = this.beKMAPath;
-            this.layoutControlItem15.Location = new System.Drawing.Point(0, 96);
-            this.layoutControlItem15.Name = "layoutControlItem15";
-            this.layoutControlItem15.Size = new System.Drawing.Size(270, 24);
-            this.layoutControlItem15.Text = "KMA Path";
-            this.layoutControlItem15.TextSize = new System.Drawing.Size(77, 13);
             // 
             // AdFlager_HMAUC
             // 
@@ -758,6 +757,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.userAgentBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.beKMAPath.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.seFlagCount.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlPID)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.flagUnitBindingSource)).EndInit();
@@ -788,9 +788,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dxvp)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.beKMAPath.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem15)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dxvp)).EndInit();
             this.ResumeLayout(false);
 
         }

@@ -56,16 +56,53 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.BonusSkins.v15.1" />
-    <Reference Include="DevExpress.Data.v15.1" />
-    <Reference Include="DevExpress.Printing.v15.1.Core" />
-    <Reference Include="DevExpress.Utils.v15.1" />
-    <Reference Include="DevExpress.XtraBars.v15.1" />
-    <Reference Include="DevExpress.Sparkline.v15.1.Core" />
-    <Reference Include="DevExpress.XtraEditors.v15.1" />
-    <Reference Include="DevExpress.XtraGrid.v15.1, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraLayout.v15.1, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.XtraPrinting.v15.1, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.BonusSkins.v15.1">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Data.v15.1">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Office.v15.1.Core, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v15.1.Core">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.RichEdit.v15.1.Core, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v15.1">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraBars.v15.1">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Sparkline.v15.1.Core">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v15.1">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid.v15.1, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraLayout.v15.1, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraPrinting.v15.1, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraRichEdit.v15.1, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Geckofx-Core, Version=33.0.8.0, Culture=neutral, PublicKeyToken=3209ac31600d1857, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\bin\GeckoFx\Geckofx-Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Geckofx-Winforms, Version=33.0.8.0, Culture=neutral, PublicKeyToken=3209ac31600d1857, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\bin\GeckoFx\Geckofx-Winforms.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
@@ -80,6 +117,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Core.cs" />
+    <Compile Include="Datasource\Act_Item.cs" />
+    <Compile Include="Datasource\Exe_Activity.cs" />
+    <Compile Include="Datasource\FlagTemplate.cs" />
     <Compile Include="Core\HMA.cs" />
     <Compile Include="Core\Win32.cs" />
     <Compile Include="Datasource\dsData.Designer.cs">
@@ -102,6 +142,24 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Test.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Test.Designer.cs">
+      <DependentUpon>Test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ActivityUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\ActivityUC.Designer.cs">
+      <DependentUpon>ActivityUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\AddListDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\AddListDlg.Designer.cs">
+      <DependentUpon>AddListDlg.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\AdFlager_ProxyUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -126,6 +184,24 @@
     <Compile Include="UI\AdFlager_HMAUC.Designer.cs">
       <DependentUpon>AdFlager_HMAUC.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\ActivityCategoryUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\ActivityCategoryUC.Designer.cs">
+      <DependentUpon>ActivityCategoryUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\LoginInfoUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\LoginInfoUC.Designer.cs">
+      <DependentUpon>LoginInfoUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\TemWaitDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\TemWaitDlg.Designer.cs">
+      <DependentUpon>TemWaitDlg.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\TestProxyUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -144,6 +220,15 @@
     <Compile Include="UI\ProxyUC.Designer.cs">
       <DependentUpon>ProxyUC.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Test.resx">
+      <DependentUpon>Test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ActivityUC.resx">
+      <DependentUpon>ActivityUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\AddListDlg.resx">
+      <DependentUpon>AddListDlg.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\CategoryUC.resx">
       <DependentUpon>CategoryUC.cs</DependentUpon>
     </EmbeddedResource>
@@ -152,6 +237,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\AdFlager_HMAUC.resx">
       <DependentUpon>AdFlager_HMAUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ActivityCategoryUC.resx">
+      <DependentUpon>ActivityCategoryUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\LoginInfoUC.resx">
+      <DependentUpon>LoginInfoUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\TemWaitDlg.resx">
+      <DependentUpon>TemWaitDlg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\TestProxyUC.resx">
       <DependentUpon>TestProxyUC.cs</DependentUpon>
@@ -220,6 +314,10 @@
   <ItemGroup>
     <Content Include="craigslist_Icon.ico" />
     <Content Include="db.mdb" />
+    <None Include="Resources\contact_32x32.png" />
+    <None Include="Resources\contact_16x16.png" />
+    <None Include="Resources\cancel_16x16.png" />
+    <None Include="Resources\apply_16x16.png" />
     <None Include="Resources\Online16.png" />
     <None Include="Resources\Offline16.png" />
     <None Include="Resources\TestProxy32.png" />

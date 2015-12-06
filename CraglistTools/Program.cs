@@ -21,6 +21,7 @@ namespace CraigslistTools
             SkinManager.EnableFormSkins();
             Core.HMA.Init();
             Application.Run(new MainFrm());
+            //Application.Run(new Test());
         }
     }
 }
