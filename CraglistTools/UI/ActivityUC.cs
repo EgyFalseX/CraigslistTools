@@ -23,6 +23,7 @@ namespace CraigslistTools.UI
         int Login_Off = 0;
         List<Datasource.Exe_Activity> Ex_Data = new List<Datasource.Exe_Activity>();
         int _ex_Off = 0;
+        int _pxy_Off = 0;
         #endregion
         #region  - Func -
         public ActivityUC()
@@ -37,7 +38,7 @@ namespace CraigslistTools.UI
             activityCategoryTableAdapter.Fill(dsData.ActivityCategory);
             loginInfoTableAdapter.FillByActive(dsData.LoginInfo);
             userAgentTableAdapter.Fill(dsData.UserAgent);
-
+            proxyTableAdapter.Fill(dsData.Proxy);
             Core.HMA.Init();
 
             //Test();
@@ -120,6 +121,22 @@ namespace CraigslistTools.UI
                 recLog.ScrollToCaret();
             }));
         }
+        private void ChangeProxy(string ip, int port)
+        {
+            geckoWB.Invoke(new MethodInvoker(() => 
+            {
+                GeckoPreferences.Default["network.proxy.type"] = 1;
+                GeckoPreferences.Default["network.proxy.http"] = ip;
+                GeckoPreferences.Default["network.proxy.http_port"] = port;
+            }));
+        }
+        public bool PromptAuth(nsIChannel aChannel, uint level, nsIAuthInformation authInfo)
+        {
+            nsString.Set(authInfo.SetUsernameAttribute, "USERNAME");
+            nsString.Set(authInfo.SetPasswordAttribute, "PASSWORD");
+            return true;
+        }
+
         #endregion
         #region  - Events -
         private void btnAddSpamPID_Click(object sender, EventArgs e)
@@ -235,13 +252,15 @@ namespace CraigslistTools.UI
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            if (beHMAPath.EditValue == null || beHMAPath.EditValue.ToString() == string.Empty)
+            if ((beHMAPath.EditValue == null || beHMAPath.EditValue.ToString() == string.Empty) && (bool)tsPorxy.EditValue == false)
             {
                 MessageBox.Show("Please Select HMA Path ...", "Missing information", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            Core.HMA.KMAPath = beHMAPath.EditValue.ToString();
-            Ex_Data.Clear(); _ex_Off = 0;
+            if ((bool)tsPorxy.EditValue == false)
+                Core.HMA.KMAPath = beHMAPath.EditValue.ToString();
+            
+            Ex_Data.Clear(); _ex_Off = 0; _pxy_Off = 0;
             
             Random rnd_Cat = new Random();
             Random rnd_Agent = new Random();
@@ -269,7 +288,7 @@ namespace CraigslistTools.UI
                             _linkView_Off++;
                             break;
                         case CraigslistTools.Core.Core.TemplateType.Nav_Spam:
-                            if (_pidSpam_Off == _pidSpam.Count - 1)
+                            if (_pidSpam_Off == _pidSpam.Count)
                                 _pidSpam_Off = 0;
                             act.Link = _pidSpam[_pidSpam_Off].Link;
                             _pidSpam_Off++;
@@ -299,10 +318,9 @@ namespace CraigslistTools.UI
             pbc.EditValue = 0;
             Ex_Start();
         }
-
         private void Ex_Start()
         {
-            if (_ex_Off == Ex_Data.Count - 1)
+            if (_ex_Off == Ex_Data.Count)
             {
                 MessageBox.Show("All complete ...", "done message", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;//stop all
@@ -348,6 +366,7 @@ namespace CraigslistTools.UI
             });
             
         }
+
         private void OpCode_Login(Datasource.Exe_Activity actv)
         {
             geckoWB.Invoke(new MethodInvoker(() => 
@@ -355,7 +374,8 @@ namespace CraigslistTools.UI
                 geckoWB.DocumentCompleted += geckoWB_OpCode_Login_DocumentCompleted;
                 geckoWB.Tag = actv; actv.OpCode_Status = "NavToLogin";
                 AddLog("Navigate To Login...", false);
-                geckoWB.Navigate(actv.Cl_lOGIN);
+                geckoWB.Invoke(new MethodInvoker(() =>
+                { geckoWB.Navigate(actv.Cl_lOGIN); }));
             }));
             
         }
@@ -396,7 +416,9 @@ namespace CraigslistTools.UI
             geckoWB.DocumentCompleted += geckoWB_OpCode_Nav_CL_DocumentCompleted;
             geckoWB.Tag = actv;
             AddLog("Navigate to CL", false);
-            geckoWB.Navigate(actv.Cl_URL);
+            geckoWB.Invoke(new MethodInvoker(() =>
+            { geckoWB.Navigate(actv.Cl_URL); }));
+            
         }
         void geckoWB_OpCode_Nav_CL_DocumentCompleted(object sender, Gecko.Events.GeckoDocumentCompletedEventArgs e)
         {
@@ -410,7 +432,8 @@ namespace CraigslistTools.UI
             geckoWB.DocumentCompleted += geckoWB_OpCode_Nav_Cat_DocumentCompleted;
             geckoWB.Tag = actv;
             AddLog("Navigate To Cat: " + actv.ActivityCategory, false);
-            geckoWB.Navigate(actv.ActivityCategory);
+            geckoWB.Invoke(new MethodInvoker(() =>
+            { geckoWB.Navigate(actv.ActivityCategory); }));
         }
         void geckoWB_OpCode_Nav_Cat_DocumentCompleted(object sender, Gecko.Events.GeckoDocumentCompletedEventArgs e)
         {
@@ -424,7 +447,8 @@ namespace CraigslistTools.UI
             geckoWB.DocumentCompleted += geckoWB_OpCode_Nav_View_DocumentCompleted;
             geckoWB.Tag = actv;
             AddLog("Navigate To View: " + actv.Link, false);
-            geckoWB.Navigate(actv.Link);
+            geckoWB.Invoke(new MethodInvoker(() =>
+            { geckoWB.Navigate(actv.Link); }));
         }
         void geckoWB_OpCode_Nav_View_DocumentCompleted(object sender, Gecko.Events.GeckoDocumentCompletedEventArgs e)
         {
@@ -438,7 +462,8 @@ namespace CraigslistTools.UI
             geckoWB.DocumentCompleted += geckoWB_OpCode_Nav_Spam_DocumentCompleted;
             geckoWB.Tag = actv;
             AddLog("Navigate To Spam: " + actv.Link, false);
-            geckoWB.Navigate(actv.Link);
+            geckoWB.Invoke(new MethodInvoker(() =>
+            { geckoWB.Navigate(actv.Link); }));
         }
         void geckoWB_OpCode_Nav_Spam_DocumentCompleted(object sender, Gecko.Events.GeckoDocumentCompletedEventArgs e)
         {
@@ -457,7 +482,8 @@ namespace CraigslistTools.UI
             geckoWB.DocumentCompleted += geckoWB_OpCode_Nav_Best_DocumentCompleted;
             geckoWB.Tag = actv;
             AddLog("Navigate To Best: " + actv.Link, false);
-            geckoWB.Navigate(actv.Link);
+            geckoWB.Invoke(new MethodInvoker(() =>
+            { geckoWB.Navigate(actv.Link); }));
         }
         void geckoWB_OpCode_Nav_Best_DocumentCompleted(object sender, Gecko.Events.GeckoDocumentCompletedEventArgs e)
         {
@@ -479,7 +505,7 @@ namespace CraigslistTools.UI
 
             Ex_Start();
         }
-
+        
         private void OpCode_Clean_Agent(Datasource.Exe_Activity actv)
         {
             //Delete All Cookies
@@ -499,21 +525,34 @@ namespace CraigslistTools.UI
 
         private void OpCode_Proxy(Datasource.Exe_Activity actv)
         {
-            Core.HMA.ChangeIP();
-            AddLog("Changing IP ...", false);
-            System.Threading.Thread.Sleep(10000);
-            while (Core.HMA.Status() == Core.HMA.HMA_State.Not_Connected)
+            if ((bool)tsPorxy.EditValue == false)
             {
-                AddLog("Waiting Get New IP", false);
-                System.Threading.Thread.Sleep(5000);
-                Application.DoEvents();
+                Core.HMA.ChangeIP();
+                AddLog("Changing IP ...", false);
+                System.Threading.Thread.Sleep(10000);
+                while (Core.HMA.Status() == Core.HMA.HMA_State.Not_Connected)
+                {
+                    AddLog("Waiting Get New IP", false);
+                    System.Threading.Thread.Sleep(5000);
+                    Application.DoEvents();
+                }
             }
+            else
+            {
+                if (_pxy_Off > dsData.Proxy.Count)
+                    _pxy_Off = 0;
+                string[] proxy = dsData.Proxy[_pxy_Off].IP.Split(':');
+                ChangeProxy(proxy[0], Convert.ToInt32(proxy[1]));
+                _pxy_Off++;
+            }
+            
             AddLog("Test New IP", false);
             geckoWB.Tag = actv;
             geckoWB.DocumentCompleted += geckoWB_OpCode_Proxy_DocumentCompleted;
-            geckoWB.Navigate(actv.Cl_URL);
-        }
 
+            geckoWB.Invoke(new MethodInvoker(() => { geckoWB.Navigate(actv.Cl_URL); }));
+
+        }
         void geckoWB_OpCode_Proxy_DocumentCompleted(object sender, Gecko.Events.GeckoDocumentCompletedEventArgs e)
         {
             geckoWB.DocumentCompleted -= geckoWB_OpCode_Proxy_DocumentCompleted;

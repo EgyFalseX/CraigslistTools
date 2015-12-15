@@ -74,5 +74,30 @@ namespace CraigslistTools
             ((GeckoHtmlElement)ele_user[0]).Click();
 
         }
+
+        private void Test_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnChangeProxy_Click(object sender, EventArgs e)
+        {
+            GeckoPreferences.Default["network.proxy.type"] = 1;
+            GeckoPreferences.Default["network.proxy.http"] = "89.40.196.45";
+            GeckoPreferences.Default["network.proxy.http_port"] = 8080;
+            MessageBox.Show("Done ... 89.40.196.45");
+            
+            //GeckoPreferences.Default["network.proxy.ssl"] = proxyAddress.Host;
+            //GeckoPreferences.Default["network.proxy.ssl_port"] = proxyAddress.Port;
+
+        }
+
+        private void btnproxy2_Click(object sender, EventArgs e)
+        {
+            GeckoPreferences.Default["network.proxy.type"] = 1;
+            GeckoPreferences.Default["network.proxy.http"] = "185.46.85.111";
+            GeckoPreferences.Default["network.proxy.http_port"] = 8085;
+            MessageBox.Show("Done ...185.46.85.111");
+        }
     }
 }

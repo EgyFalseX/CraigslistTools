@@ -35,6 +35,8 @@
             this.btnuseragent = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.btnSpam = new System.Windows.Forms.Button();
+            this.btnChangeProxy = new System.Windows.Forms.Button();
+            this.btnproxy2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // geckoWebBrowser1
@@ -70,11 +72,11 @@
             // 
             // tbURL
             // 
-            this.tbURL.Location = new System.Drawing.Point(429, 12);
+            this.tbURL.Location = new System.Drawing.Point(469, 12);
             this.tbURL.Name = "tbURL";
-            this.tbURL.Size = new System.Drawing.Size(232, 20);
+            this.tbURL.Size = new System.Drawing.Size(192, 20);
             this.tbURL.TabIndex = 3;
-            this.tbURL.Text = "http://clarksville.craigslist.org/lab/5332994951.html?lang=es&cc=mx";
+            this.tbURL.Text = "http://whatismyipaddress.com/";
             // 
             // btnuseragent
             // 
@@ -106,11 +108,33 @@
             this.btnSpam.UseVisualStyleBackColor = true;
             this.btnSpam.Click += new System.EventHandler(this.btnSpam_Click);
             // 
+            // btnChangeProxy
+            // 
+            this.btnChangeProxy.Location = new System.Drawing.Point(336, 13);
+            this.btnChangeProxy.Name = "btnChangeProxy";
+            this.btnChangeProxy.Size = new System.Drawing.Size(57, 23);
+            this.btnChangeProxy.TabIndex = 5;
+            this.btnChangeProxy.Text = "proxy1";
+            this.btnChangeProxy.UseVisualStyleBackColor = true;
+            this.btnChangeProxy.Click += new System.EventHandler(this.btnChangeProxy_Click);
+            // 
+            // btnproxy2
+            // 
+            this.btnproxy2.Location = new System.Drawing.Point(399, 13);
+            this.btnproxy2.Name = "btnproxy2";
+            this.btnproxy2.Size = new System.Drawing.Size(57, 23);
+            this.btnproxy2.TabIndex = 5;
+            this.btnproxy2.Text = "proxy";
+            this.btnproxy2.UseVisualStyleBackColor = true;
+            this.btnproxy2.Click += new System.EventHandler(this.btnproxy2_Click);
+            // 
             // Test
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(754, 417);
+            this.Controls.Add(this.btnproxy2);
+            this.Controls.Add(this.btnChangeProxy);
             this.Controls.Add(this.btnSpam);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.tbURL);
@@ -120,6 +144,7 @@
             this.Controls.Add(this.geckoWebBrowser1);
             this.Name = "Test";
             this.Text = "Test";
+            this.Load += new System.EventHandler(this.Test_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -134,5 +159,7 @@
         private System.Windows.Forms.Button btnuseragent;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnSpam;
+        private System.Windows.Forms.Button btnChangeProxy;
+        private System.Windows.Forms.Button btnproxy2;
     }
 }

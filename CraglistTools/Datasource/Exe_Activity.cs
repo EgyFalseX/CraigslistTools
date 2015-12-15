@@ -21,6 +21,7 @@ namespace CraigslistTools.Datasource
         }
 
         public readonly string Cl_URL = "https://craigslist.org/";
+        //public readonly string Cl_URL = "http://whatismyipaddress.com/";
         public readonly string Cl_lOGIN = "https://accounts.craigslist.org/login";
         public readonly int WAITSEC = 4 * 1000;
 
